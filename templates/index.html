@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <title>BOT</title>
+  </head>
+  <body>
+    <div class="container mt-5">
+      <form method="POST">
+        <div class="form-group">
+          <textarea class="form-control" id="search" name="search" rows="9" style="overflow:auto" placeholder="Bienvenido
+
+- La barra de busqueda sirve para introducir comandos.
+- si el comando no existe la peticion sera recibida por una Inteligencia Artificial en forma de pregunta. 
+- si sigue escribiendo se creara una conversacion donde la IA recordara todo lo anterior hablado.
+- Usa el boton de Reiniciar IA para empezar una conversacion nueva."></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary">Ejecutar</button>
+        <button type="button" class="btn btn-danger" onclick="location.href='/reset';event.stopPropagation();">Reiniciar IA</button>
+        <button type="button" class="btn btn-secondary" onclick="location.href='/ver_chat';event.stopPropagation();">Ver Chat</button>  
+      </form>
+    </div>
+    {% if search_text %}
+    <div class="container mt-5">
+        <div class="alert alert-secondary">
+        Búsqueda: {{ search_text }}
+        </div>
+    </div>
+    {% endif %}
+    <div class="container mt-5">
+        <div id="resultado" class="alert alert-primary">
+        {% if result %}
+            {{ result|safe }}
+        {% endif %}
+      </div>
+      <div class="container mt-5">
+          <div class="card">
+              <div class="card-header">
+                  Chat
+              </div>
+              <div class="card-body">
+                  {{ data|safe }}
+              </div>
+          </div>
+      </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.16.0/dist/umd/popper.min.js" integrity="sha384-Q1g9b4EKs8s4wG60T/T3AKK1Sv0/ZHzkx+s4ytrsQ2FnoKj9Rv+16nSZl1qwYCU0" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js" integrity="sha384-B4gt1jrGC7Jh4AgTPSdUtOBvfO8shuf57BaghqFfPlYxofvL8/KUEfYiJOMMV+rV" crossorigin="anonymous"></script>
+  </body>
+</html>
