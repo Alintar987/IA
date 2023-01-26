@@ -1,7 +1,8 @@
-from flask import Flask, request, render_template
+from flask import Flask, request, render_template, url_for
 from GPT3 import generate_response
 import re
 import os
+from Dalle import create_image
 
 app = Flask(__name__)
 
@@ -136,6 +137,19 @@ def eliminar(filename):
         os.remove(os.path.join('chats', filename + '.txt'))
         return render_template('info.html', result='Se Elimino correctamente la conversación')
 
+#---------------------------------------------------------
+@app.route('/dalle')
+def init_dalle():
+    return render_template('dalle.html')
+
+@app.route('/dalle', methods=['POST'])
+def dalle():
+    prom = request.form['prompt']
+    sice = request.form['size']
+
+    create_image(prom, sice)
+
+    return render_template('imagen.html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=8554, debug=True)
+    app.run(host='0.0.0.0', port=8554)
