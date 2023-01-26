@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Cargar Chats</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+  <style>
+    .chat-container {
+      padding: 10px;
+    }
+
+    .chat-filename {
+      font-weight: bold;
+    }
+
+    .chat-content {
+      white-space: pre-line;
+    }
+
+    .chat-filename {
+      font-weight: bold;
+      text-align: center;
+      font-size: larger;
+      text-transform: uppercase;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container mt-5">
+    <div class="text-center"><button type="button" class="btn btn-outline-primary btn-lg mx-auto" onclick="location.href='/'">ASISTENTE</button></div><br>
+    {% for chat in chats %}
+      <div class="card">
+        <div class="card-header">
+          <p class="chat-filename">{{ chat.filename }}</p>
+        </div>
+        <div class="card-body">
+          <div class="card-content">
+            {{ chat.content|safe }}
+          </div>
+          <br>
+          <div class="d-flex justify-content-center">
+            <form action="{{ url_for('remplazar', filename=chat.filename) }}" method="get">
+              <input type="submit" class="btn btn-success mr-2" value="Cargar Chat">
+            </form>
+            <form action="{{ url_for('eliminar', filename=chat.filename) }}" method="post">
+              <input type="submit" class="btn btn-danger" value="Eliminar Chat">
+            </form>
+          </div>                 
+        </div>
+      </div>
+      <br>
+    {% endfor %}
+  </div>
+</body>
+</html>
